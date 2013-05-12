@@ -1,0 +1,11 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+    <MktDataReq ReqID="1" SubReqTyp="1" MktDepth="1">
+        <req Typ="C"/>
+        <req Typ="4"/>
+        <req Typ="5"/>
+        <InstReq>
+            <Instrmt Sym="COMARCH" ID="PLCOMAR00012" Src="4"/>
+            <Instrmt Sym="TPSA" ID="PLTLKPL00017" Src="4"/>
+        </InstReq>
+    </MktDataReq>
+</FIXML>

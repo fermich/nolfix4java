@@ -1,0 +1,8 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+    <SecList RptID="0" ReqID="0" MktID="WE" ReqRslt="0" TotNoReltdSym="1">
+        <SecL>
+            <Instrmt Sym="COMARCH" Src="4" ID="PLCOMAR00012" SecGrp="C7" CFI="ESXXXX"/>
+            <Instrmt Sym="TPSA" Src="4" ID="TPSA00012" SecGrp="C7" CFI="ESXXXX"/>
+        </SecL>
+    </SecList>
+</FIXML>

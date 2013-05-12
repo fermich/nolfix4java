@@ -1,0 +1,5 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+<TrdgSesStat ReqID="0" SesSub="S">
+    <Instrmt Sym="TPSA" ID="PLTLKPL00017" Src="4" />
+</TrdgSesStat>
+</FIXML>

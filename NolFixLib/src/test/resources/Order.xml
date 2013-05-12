@@ -1,0 +1,7 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+<Order ID="1" TrdDt="20130417" Acct="00-55-012345" Side="1"
+       TxnTm="20130417" OrdTyp="G" StopPx="199.0" Ccy="PLN" TmInForce="0">
+    <Instrmt ID="PLCOMAR00012" Src="4"/>
+    <OrdQty Qty="10.0"/>
+</Order>
+</FIXML>

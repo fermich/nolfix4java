@@ -1,0 +1,5 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+    <SecListReq ReqID="0" ListReqTyp="0">
+        <Instrmt Sym="COMARCH"/>
+    </SecListReq>
+</FIXML>

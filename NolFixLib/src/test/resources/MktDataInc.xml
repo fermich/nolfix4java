@@ -1,0 +1,10 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+    <MktDataInc MDReqID="20">
+        <Inc Typ="C" Sz="10">
+            <Instrmt Sym="COMARCH" ID="PLCOMAR00012" Src="4"/>
+        </Inc>
+        <Inc Typ="C" Sz="10">
+            <Instrmt Sym="TPSA" ID="PLTLKPL00017" Src="4"/>
+        </Inc>
+    </MktDataInc>
+</FIXML>

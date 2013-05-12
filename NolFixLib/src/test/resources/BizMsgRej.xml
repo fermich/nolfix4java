@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FIXML v="5.0" r="20080317" s="20080314">
+    <BizMsgRej RefMsgTyp="BE" BizRejRsn="5" Txt="Test"/>
+</FIXML>

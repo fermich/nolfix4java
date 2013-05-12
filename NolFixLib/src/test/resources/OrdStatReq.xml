@@ -1,0 +1,5 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+<OrdStatReq OrdID="123456789" StatReqID="0" Acct="00-55-012345" Side="1" >
+    <Instrmt Sym="COMARCH" />
+</OrdStatReq>
+</FIXML>

@@ -1,0 +1,8 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+<MktDataReq ReqID="0" SubReqTyp="1" MktDepth="1">
+  <!--<req Typ="0" Typ="1" Typ="2"/>-->
+  <InstReq>
+    <Instrmt Sym="COMARCH"/>
+  </InstReq>
+</MktDataReq>
+</FIXML>

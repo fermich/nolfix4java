@@ -1,0 +1,12 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+    <MktDataFull ReqID="22"/>
+</FIXML>
+
+<!--
+From Documentation:
+<FIXML v="5.0" r="20080317" s="20080314">
+<MktDataFull>
+  <ReqID ="1"/>
+</MktDataFull>
+</FIXML>
+-->

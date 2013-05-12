@@ -1,0 +1,10 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+<ExecRpt ID="5" OrdID="178803909" OrdID2="82755223" ExecID="0"
+         ExecTyp="0" Stat="0" Acct="00-55-012345" Side="1" TmInForce="0"
+         OrdTyp="L" Px="5.20" TxnTm="20120412-17:27:38" Ccy="PLN" CumQty="0"
+         LeavesQty="1" MinQty="0" DefPayTyp="N" >
+    <Instrmt Sym="COMARCH" Src="4" ID="PLCOMAR00012"/>
+    <DsplyInstr DisplayQty="0"/>
+    <OrdQty Qty="1"/>
+</ExecRpt>
+</FIXML>

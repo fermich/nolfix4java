@@ -1,0 +1,6 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+    <OrdCxlReq ID="1" OrdID="168193517" Acct="00-55-006638" Side="1" TxnTm="20100628-08:01:23">
+        <Instrmt Sym="COMARCH" ID="PLCOMAR00012" Src="4"/>
+        <OrdQty Qty="1.0"/>
+    </OrdCxlReq>
+</FIXML>

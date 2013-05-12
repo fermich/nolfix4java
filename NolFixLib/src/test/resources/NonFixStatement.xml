@@ -1,0 +1,29 @@
+<FIXML v="5.0" r="20080317" s="20080314">
+<Statement Acct="00-22-012345" type="P" ike="N">
+    <Fund name="SecValueSum" value="0.00"/>
+    <Fund name="Cash" value="0.00"/>
+    <Fund name="Deposit" value="0.00"/>
+    <Fund name="CashBlocked" value="0.00"/>
+    <Fund name="BlockedDeposit" value="0.00"/>
+    <Fund name="SecSafeties" value="0.00"/>
+    <Fund name="SecSafetiesUsed" value="0.00"/>
+    <Fund name="FreeDeposit" value="0.00"/>
+    <Fund name="PortfolioValue" value="0.00"/>
+</Statement>
+<Statement Acct="00-55-012345" type="M" ike="N">
+    <Position Acc110="2" Acc120="0">
+        <Instrmt ID="PLBIOTN00029" Src="4" Sym="BIOTON"/>
+    </Position>
+    <Fund name="SecValueSum" value="0.14"/>
+    <Fund name="Cash" value="24.53"/>
+    <Fund name="Liabilities" value="0.00"/>
+    <Fund name="Recivables" value="0.00"/>
+    <Fund name="MaxBuy" value="73.87"/>
+    <Fund name="CashRecivables" value="24.53"/>
+    <Fund name="MaxOtpBuy" value="70.49" />
+    <Fund name="CashBlocked" value="0.00"/>
+    <Fund name="LiabilitiesLimitMax" value="49.34"/>
+    <Fund name="RecivablesBlocked" value="0.00"/>
+    <Fund name="PortfolioValue" value="24.67"/>
+</Statement>
+</FIXML>
