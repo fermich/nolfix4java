@@ -45,9 +45,11 @@ public class NolClient implements NolSender, NolReceiver {
     public void send(String rawMsg) {
         try {
             byte[] fixArray = rawMsg.getBytes();
-            byte[] fixArrayWith0 = Arrays.copyOf(fixArray, fixArray.length + 1);
+            int msgSize = fixArray.length + 1;
+            byte[] sizeArray = String.valueOf(msgSize).getBytes();
+            byte[] fixArrayWith0 = Arrays.copyOf(fixArray, msgSize);
 
-            outStream.write(fixArrayWith0.length);
+            outStream.write(sizeArray);
             outStream.flush();
 
             outStream.write(fixArrayWith0);
