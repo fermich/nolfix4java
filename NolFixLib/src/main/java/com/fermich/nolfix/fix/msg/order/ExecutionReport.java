@@ -71,7 +71,7 @@ public class ExecutionReport extends FixmlMessage {
 
     @XStreamAlias("Px")
     @XStreamAsAttribute
-    private Float px; //cena
+    private String px; //cena
 
     @XStreamAlias("StopPx")
     @XStreamAsAttribute
@@ -394,11 +394,11 @@ public class ExecutionReport extends FixmlMessage {
         return this;
     }
 
-    public Float getPx() {
+    public String getPx() {
         return px;
     }
 
-    public ExecutionReport setPx(Float px) {
+    public ExecutionReport setPx(String px) {
         this.px = px;
         return this;
     }

@@ -47,7 +47,7 @@ public class MarketDataIncrementalRefresh extends FixmlMessage {
 
         @XStreamAlias("Px")
         @XStreamAsAttribute
-        private Float px; //cena
+        private String px; //cena (can be PKC, PCR)
 
         @XStreamAlias("MDPxLvl")
         @XStreamAsAttribute
@@ -148,11 +148,11 @@ public class MarketDataIncrementalRefresh extends FixmlMessage {
             return this;
         }
 
-        public Float getPx() {
+        public String getPx() {
             return px;
         }
 
-        public MdIncGrp setPx(Float px) {
+        public MdIncGrp setPx(String px) {
             this.px = px;
             return this;
         }
