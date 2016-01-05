@@ -58,7 +58,7 @@ public class NewOrderSingle extends FixmlRequest {
 
     @XStreamAlias("Px")
     @XStreamAsAttribute
-    private Float px; //cena
+    private String px; //cena
 
     @XStreamAlias("StopPx")
     @XStreamAsAttribute
@@ -183,11 +183,11 @@ public class NewOrderSingle extends FixmlRequest {
         return this;
     }
 
-    public Float getPx() {
+    public String getPx() {
         return px;
     }
 
-    public NewOrderSingle setPx(Float px) {
+    public NewOrderSingle setPx(String px) {
         this.px = px;
         return this;
     }

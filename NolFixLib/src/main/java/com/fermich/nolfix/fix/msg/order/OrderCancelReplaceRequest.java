@@ -68,7 +68,7 @@ public class OrderCancelReplaceRequest extends FixmlRequest {
 
     @XStreamAlias("Px")
     @XStreamAsAttribute
-    private Float px; //cena
+    private String px; //cena
 
     @XStreamAlias("StopPx")
     @XStreamAsAttribute
@@ -228,11 +228,11 @@ public class OrderCancelReplaceRequest extends FixmlRequest {
         return this;
     }
 
-    public Float getPx() {
+    public String getPx() {
         return px;
     }
 
-    public OrderCancelReplaceRequest setPx(Float px) {
+    public OrderCancelReplaceRequest setPx(String px) {
         this.px = px;
         return this;
     }
