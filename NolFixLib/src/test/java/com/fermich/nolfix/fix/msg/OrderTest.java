@@ -39,7 +39,7 @@ public class OrderTest {
         Assert.assertEquals(executionReport.getSide().toString(), "1");
         Assert.assertEquals(executionReport.getTmInForce().toString(), "0");
         Assert.assertEquals(executionReport.getTyp().toString(), "L");
-        Assert.assertEquals(executionReport.getPx(), 5.20f);
+        Assert.assertEquals(executionReport.getPx(), "5.20");
         Assert.assertEquals(executionReport.getTxnTm(), "20120412-17:27:38");
         Assert.assertEquals(executionReport.getCcy(), "PLN");
         Assert.assertEquals(executionReport.getCumQty(), 0.0f);
@@ -102,7 +102,7 @@ public class OrderTest {
                 .setSide('1')
                 .setTxnTm("20120510-12:30:00")
                 .setOrdTyp('L')
-                .setPx(123.3f)
+                .setPx("123.3")
                 .setCcy("PLN")
                 .setInstrmt(new Instrument().setSym("COMARCH").setId("PLCOMAR00012").setSrc(4))
                 .setOrdQty(new OrderQtyData().setQty(200.0f));
