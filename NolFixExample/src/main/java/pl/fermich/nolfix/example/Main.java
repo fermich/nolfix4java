@@ -15,7 +15,17 @@ public class Main {
 
     private void startAsynchronousReceiver() {
         NolAsyncMsgReceiver asyncMsgReceiver = new NolAsyncMsgReceiver();
-        asyncMsgReceiver.startReceiving();
+        asyncMsgReceiver.startReceiving(new EventPublisher() {
+            @Override
+            public void send(String data) {
+                System.out.println(data);
+            }
+
+            @Override
+            public void sendAsync(String data) {
+                System.out.println(data);
+            }
+        });
     }
 
 

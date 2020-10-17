@@ -14,7 +14,7 @@ public class NolAsyncMsgReceiver {
 
     private boolean disabled = false;
 
-    public void startReceiving() {
+    public void startReceiving(final EventPublisher publisher) {
         System.out.println("Starting asynchronous receiver...");
         FutureTask<Void> taskReceiver = new FutureTask<Void>(new Callable<Void>() {
             @Override
@@ -24,7 +24,7 @@ public class NolAsyncMsgReceiver {
                 nolReceiver.connect();
                 while (!disabled) {
                     Fixml response = nolReceiver.receive();
-                    System.out.println("Received asynchronous message: " + response.unpack());
+                    publisher.sendAsync(response.unpack().toString());
                 }
                 nolReceiver.disconnect();
 
@@ -42,11 +42,6 @@ public class NolAsyncMsgReceiver {
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
-    }
-
-    public static void main(String[] args) {
-        NolAsyncMsgReceiver receiver = new NolAsyncMsgReceiver();
-        receiver.startReceiving();
     }
 
 }
