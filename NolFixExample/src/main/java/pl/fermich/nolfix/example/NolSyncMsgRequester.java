@@ -19,6 +19,8 @@ import com.fermich.nolfix.fix.msg.securities.SecurityListRequest;
 import com.fermich.nolfix.fix.msg.session.TradingSessionStatusRequest;
 import com.google.common.collect.Lists;
 
+import java.util.List;
+
 public class NolSyncMsgRequester {
 
     private RequestFactory msgFact = new RequestFactory(new FileStoreIdGenerator("requestId.txt"));
@@ -68,19 +70,25 @@ public class NolSyncMsgRequester {
         }
     }
 
-    public void addInstrumentToFilter() {
+    public void addInstrumentToFilter(List<Instrument> instruments) {
         System.out.println("Adding instrument to filter...");
         MarketDataRequest marketDataRequest = msgFact.createMarketDataRequest()
                 .setSubReqTyp(MarketDataRequest.SubscriptionRequestType.ADD_TO_FILTER.getValue())
+                //TODO Check ALL_OFFERS also
                 .setMktDepth(MarketDepth.BEST_OFFER.getValue())
                 .setReq(Lists.newArrayList(
+                        new MarketDataRequest.MdReqGrp().setTyp(EntryType.BID.getValue()),
                         new MarketDataRequest.MdReqGrp().setTyp(EntryType.OFFER.getValue()),
                         new MarketDataRequest.MdReqGrp().setTyp(EntryType.LAST_TRADE.getValue()),
                         new MarketDataRequest.MdReqGrp().setTyp(EntryType.TRADE_VOLUME.getValue()),
+                        new MarketDataRequest.MdReqGrp().setTyp(EntryType.OPEN_INTEREST.getValue()),
                         new MarketDataRequest.MdReqGrp().setTyp(EntryType.OPENNING_PRICE.getValue()),
+                        new MarketDataRequest.MdReqGrp().setTyp(EntryType.CLOSING_PRICE.getValue()),
+                        new MarketDataRequest.MdReqGrp().setTyp(EntryType.TRADING_SESSION_HIGH_PRICE.getValue()),
+                        new MarketDataRequest.MdReqGrp().setTyp(EntryType.TRADING_SESSION_LOW_PRICE.getValue()),
+                        new MarketDataRequest.MdReqGrp().setTyp(EntryType.REFERENCE_PRICE.getValue()),
                         new MarketDataRequest.MdReqGrp().setTyp(EntryType.INDEX_VOLUME.getValue())))
-                .setInstReq(Lists.newArrayList(
-                        new Instrument().setSym("COMARCH")));
+                .setInstReq(instruments);
 
         try {
             Fixml fixResponse = nolClient.send(marketDataRequest.pack());
