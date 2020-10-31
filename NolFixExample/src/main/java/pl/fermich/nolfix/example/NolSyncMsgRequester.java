@@ -20,6 +20,8 @@ import com.fermich.nolfix.fix.msg.session.TradingSessionStatusRequest;
 import com.google.common.collect.Lists;
 
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class NolSyncMsgRequester {
 
@@ -41,8 +43,10 @@ public class NolSyncMsgRequester {
         }
     }
 
-    public void printInstruments() {
-        System.out.println("Getting instruments...");
+    public List<String> listInstruments() {
+        System.out.println("Getting securities...");
+        Pattern p = Pattern.compile("[A-Z,0-9]*[A-Z]+");
+
         SecurityListRequest securityListRequest = msgFact.createSecurityListRequest()
                 .setListReqTyp(SecurityListRequest.SecurityListRequestType.ONE_MARKET_TYPE_LIST.getValue())
                 .setMktId(MarketID.NM.getValue());
@@ -50,12 +54,14 @@ public class NolSyncMsgRequester {
         try {
             Fixml fixResponse = nolClient.send(securityListRequest.pack());
             SecurityList securityList = (SecurityList)fixResponse.unpack();
-            for (Instrument instrument: securityList.getInstrmts()) {
-                System.out.println(instrument);
-            }
+            return securityList.getInstrmts().stream().map(Instrument::getSym)
+                    .sorted()
+                    .filter(sym -> p.matcher(sym).matches())
+                    .collect(Collectors.toList());
         } catch (BusinessMessageRejectException brex) {
             System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
         }
+        return null;
     }
 
     public void disableAsynchronousMessagesAndPrintSessionStatus() {

@@ -10,7 +10,7 @@ public class NolPublisher {
         NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester();
 
         JFrame frame = new JFrame("NolPublisher");
-        frame.setSize(750, 400);
+        frame.setSize(750, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(new NolPanel(syncMsgRequester));

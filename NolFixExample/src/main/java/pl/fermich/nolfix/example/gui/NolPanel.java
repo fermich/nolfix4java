@@ -1,9 +1,11 @@
 package pl.fermich.nolfix.example.gui;
 
+import com.fermich.nolfix.broker.ApiLimits;
 import com.fermich.nolfix.fix.msg.common.Instrument;
 import pl.fermich.nolfix.example.KafkaPublisher;
 import pl.fermich.nolfix.example.NolAsyncMsgReceiver;
 import pl.fermich.nolfix.example.NolSyncMsgRequester;
+import pl.fermich.nolfix.example.SymsProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,21 +16,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class NolPanel extends JPanel {
+    private NolSyncMsgRequester syncMsgRequester;
+
     public NolPanel(NolSyncMsgRequester syncMsgRequester) {
+        this.syncMsgRequester = syncMsgRequester;
         this.setLayout(new BorderLayout());
 
-        this.add(northPanel(syncMsgRequester), BorderLayout.NORTH);
+        this.add(northPanel(), BorderLayout.NORTH);
 
-        JTextArea jTextArea = new JTextArea(20, 380);
-        jTextArea.setText("PGE KGHM PGNIG DINOPL PKNORLEN CDPROJEKT LOTOS ALLEGRO MBANK ");
-        jTextArea.setLineWrap(true);
-        this.add(new JScrollPane(jTextArea), BorderLayout.CENTER);
+        JTextArea filterArea = new JTextArea(20, 380);
+        filterArea.setText("PGE KGHM PGNIG DINOPL PKNORLEN CDPROJEKT LOTOS ALLEGRO MBANK ");
+        filterArea.setLineWrap(true);
+        this.add(new JScrollPane(filterArea), BorderLayout.CENTER);
 
-        this.add(southPanel(jTextArea, syncMsgRequester), BorderLayout.SOUTH);
-        this.add(eastPanel(jTextArea), BorderLayout.EAST);
+        this.add(southPanel(filterArea), BorderLayout.SOUTH);
+        this.add(eastPanel(filterArea), BorderLayout.EAST);
     }
 
-    private JPanel northPanel(NolSyncMsgRequester syncMsgRequester) {
+    private JPanel northPanel() {
         JPanel north = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton loginButton = new JButton("Login");
@@ -50,7 +55,7 @@ public class NolPanel extends JPanel {
         return north;
     }
 
-    private JPanel southPanel(JTextArea jTextArea, NolSyncMsgRequester syncMsgRequester) {
+    private JPanel southPanel(JTextArea jTextArea) {
         JPanel south = new JPanel(new FlowLayout());
         JButton add = new JButton("AddToFilter");
         add.addActionListener(actionEvent -> {
@@ -66,25 +71,41 @@ public class NolPanel extends JPanel {
         return south;
     }
 
-    private JPanel eastPanel(JTextArea jTextArea) {
+    private JPanel eastPanel(JTextArea filterArea) {
         JPanel east = new JPanel();
-        east.setLayout(new BoxLayout(east, BoxLayout.PAGE_AXIS));
+        east.setLayout(new BorderLayout());
 
         DefaultListModel<String> objectDefaultListModel = new DefaultListModel<>();
         JList<String> secList = new JList<>(objectDefaultListModel);
         JButton loadSecurities = new JButton("LoadSecurities");
-        loadSecurities.addActionListener(e -> objectDefaultListModel.addElement("ALLEGRO"));
-        east.add(loadSecurities);
+        loadSecurities.addActionListener(e -> {
+            objectDefaultListModel.clear();
+            for (String sym: syncMsgRequester.listInstruments()) {
+                objectDefaultListModel.addElement(sym);
+            }
+        });
+        east.add(loadSecurities, BorderLayout.NORTH);
 
-        east.add(new JScrollPane(secList));
+        east.add(new JScrollPane(secList), BorderLayout.CENTER);
         JButton addToMonitor = new JButton("<<");
         addToMonitor.addActionListener(e -> {
-                    for (String sym: secList.getSelectedValuesList()) {
-                        jTextArea.append(sym + " ");
-                    }
-                }
-        );
-        east.add(addToMonitor);
+            for (String sym: secList.getSelectedValuesList()) {
+                filterArea.append(sym + " ");
+            }
+        });
+
+        JPanel eastButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        eastButtons.add(addToMonitor);
+
+        JButton wig20ToMonitor = new JButton("WIG20");
+        wig20ToMonitor.addActionListener(e -> {
+            for (String sym: SymsProvider.wig20()) {
+                filterArea.append(sym + " ");
+            }
+        });
+        eastButtons.add(wig20ToMonitor);
+
+        east.add(eastButtons, BorderLayout.SOUTH);
         return east;
     }
 
@@ -96,6 +117,7 @@ public class NolPanel extends JPanel {
     private void addToFilter(NolSyncMsgRequester syncMsgRequester, java.util.List<String> syms) {
         List<Instrument> instruments = syms.stream()
                 .map(i -> new Instrument().setSym(i))
+                .limit(ApiLimits.MAX_SECURITIES_IN_FILTER)
                 .collect(Collectors.toList());
         syncMsgRequester.addInstrumentToFilter(instruments);
     }
