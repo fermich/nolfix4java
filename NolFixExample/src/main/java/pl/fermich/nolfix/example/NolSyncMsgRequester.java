@@ -18,6 +18,7 @@ import com.fermich.nolfix.fix.msg.securities.SecurityList;
 import com.fermich.nolfix.fix.msg.securities.SecurityListRequest;
 import com.fermich.nolfix.fix.msg.session.TradingSessionStatusRequest;
 import com.google.common.collect.Lists;
+import pl.fermich.nolfix.example.logs.MessageLogger;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -27,6 +28,11 @@ public class NolSyncMsgRequester {
 
     private RequestFactory msgFact = new RequestFactory(new FileStoreIdGenerator("requestId.txt"));
     private NolRequestReplyClient nolClient = new NolRequestReplyClient(ApiSettings.HOST, ApiSettings.SYNC_PORT_NUM);
+    private MessageLogger logger;
+
+    public NolSyncMsgRequester(MessageLogger logger) {
+        this.logger = logger;
+    }
 
     public void login() {
         System.out.println("Logging in...");
@@ -37,9 +43,11 @@ public class NolSyncMsgRequester {
 
         try {
             Fixml fixResponse = nolClient.send(userRequest.pack());
-            System.out.println("Response: " + fixResponse.unpack());
+            logger.logInfo("Response: " + fixResponse.unpack());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
     }
 
@@ -59,7 +67,9 @@ public class NolSyncMsgRequester {
                     .filter(sym -> p.matcher(sym).matches())
                     .collect(Collectors.toList());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
         return null;
     }
@@ -70,9 +80,11 @@ public class NolSyncMsgRequester {
                 .setSubReqTyp(TradingSessionStatusRequest.SubscriptionRequestType.MSG_ONLINE_OFF.getValue());
         try {
             Fixml fixResponse = nolClient.send(tradingSessionStatusRequest.pack());
-            System.out.println("Session status: " + fixResponse.unpack());
+            logger.logInfo("Session status: " + fixResponse.unpack());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
     }
 
@@ -98,11 +110,13 @@ public class NolSyncMsgRequester {
 
         try {
             Fixml fixResponse = nolClient.send(marketDataRequest.pack());
-            System.out.println("MarketDataSnapshotFullRefresh: " + fixResponse.unpack());
+            logger.logInfo("MarketDataSnapshotFullRefresh: " + fixResponse.unpack());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
         } catch (MarketDataRequestRejectException mdrex) {
-            System.out.println("MarketDataRequestReject: " + mdrex.getErrorMessage());
+            logger.logError("MarketDataRequestReject: " + mdrex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
     }
 
@@ -114,11 +128,13 @@ public class NolSyncMsgRequester {
 
         try {
             Fixml fixResponse = nolClient.send(marketDataRequest.pack());
-            System.out.println("MarketDataSnapshotFullRefresh: " + fixResponse.unpack());
+            logger.logInfo("MarketDataSnapshotFullRefresh: " + fixResponse.unpack());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
         } catch (MarketDataRequestRejectException mdrex) {
-            System.out.println("MarketDataRequestReject: " + mdrex.getErrorMessage());
+            logger.logError("MarketDataRequestReject: " + mdrex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
     }
 
@@ -136,11 +152,12 @@ public class NolSyncMsgRequester {
 
         try {
             Fixml fixResponse = nolClient.send(newOrderSingle.pack());
-            System.out.println("ExecutionReport: " + fixResponse.unpack());
+            logger.logInfo("ExecutionReport: " + fixResponse.unpack());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
-
     }
 
     public void cancelOrder() {
@@ -154,9 +171,11 @@ public class NolSyncMsgRequester {
 
         try {
             Fixml fixResponse = nolClient.send(orderCancelRequest.pack());
-            System.out.println("ExecutionReport: " + fixResponse.unpack());
+            logger.logInfo("ExecutionReport: " + fixResponse.unpack());
         } catch (BusinessMessageRejectException brex) {
-            System.out.println("BusinessMessageReject: " + brex.getErrorMessage());
+            logger.logError("BusinessMessageReject: " + brex.getErrorMessage());
+        } catch (Exception ex) {
+            logger.logError(ex.getMessage());
         }
     }
 

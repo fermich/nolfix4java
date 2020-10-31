@@ -1,6 +1,7 @@
 package pl.fermich.nolfix.example;
 
 import com.fermich.nolfix.fix.msg.common.Instrument;
+import pl.fermich.nolfix.example.logs.MessageLogger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +42,7 @@ public class NolMain {
     }
 
     public static void addToFilter(List<String> syms) {
-        NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester();
+        NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester(new MessageLogger());
         List<Instrument> instruments = syms.stream().skip(2)
                 .map(i -> new Instrument().setSym(i))
                 .collect(Collectors.toList());
@@ -49,7 +50,7 @@ public class NolMain {
     }
 
     public static void publish(String kafka, String topic) {
-        NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester();
+        NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester(new MessageLogger());
         syncMsgRequester.login();
 
         NolAsyncMsgReceiver asyncMsgReceiver = new NolAsyncMsgReceiver();
@@ -57,7 +58,7 @@ public class NolMain {
     }
 
     public static void cleanUpFilter() {
-        NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester();
+        NolSyncMsgRequester syncMsgRequester = new NolSyncMsgRequester(new MessageLogger());
         syncMsgRequester.cleanUpFilter();
     }
 }
