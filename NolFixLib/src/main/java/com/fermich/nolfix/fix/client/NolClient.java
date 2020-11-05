@@ -17,6 +17,7 @@ public class NolClient implements NolSender, NolReceiver {
     private InputStream inStream;
     private OutputStream outStream;
     private FixmlMarshaller fixmlMarshaller;
+    private final String VIRT_PILLOW = "    ";
 
     public NolClient(String host, int port) {
         this.host = host;
@@ -38,7 +39,7 @@ public class NolClient implements NolSender, NolReceiver {
 
     @Override
     public void send(Fixml fixMsg) {
-        send(fixmlMarshaller.serialize(fixMsg));
+        send(VIRT_PILLOW + fixmlMarshaller.serialize(fixMsg));
     }
 
     @Override
