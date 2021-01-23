@@ -11,6 +11,7 @@ public class Main {
 //        syncMsgRequester.disableAsynchronousMessagesAndPrintSessionStatus();
 //        syncMsgRequester.newOrder();
 //        syncMsgRequester.cancelOrder();
+// aaa
     }
 
     private void startAsynchronousReceiver() {
